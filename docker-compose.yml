@@ -1,0 +1,33 @@
+version: '3.9'
+services:    
+ suivistage-app:
+    image: suivistage:v1.0.0
+    container_name: suivistage-app
+    restart: unless-stopped 
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://suivistagebd:5432/suivistagebd 
+      - SPRING_DATASOURCE_USERNAME=admin 
+      - SPRING_DATASOURCE_PASSWORD=admin123
+    depends_on: 
+      - suivistagebd 
+    networks: 
+      - blackseatechnology-network 
+  
+ suivistagebd:
+    image: postgres:16.2-alpine 
+    container_name: suivistagebd 
+    restart: unless-stopped 
+    environment:
+      POSTGRES_DB: suivistagebd 
+      POSTGRES_USER: admin 
+      POSTGRES_PASSWORD: admin123
+    networks:
+      - blackseatechnology-network
+    volumes:
+      - serialdb-data:/var/lib/postgresql/data
+
+networks:
+  network1:
+    name: blackseatechnology-network
+    external: true

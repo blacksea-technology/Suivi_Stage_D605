@@ -15,7 +15,7 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:17.0.10_7-jdk AS final
 
 # Copier les artefacts construits à partir de l'étape précédente dans le conteneur final
-COPY --from=builder /app/target/*.jar /app/smartKey.jar
+COPY --from=builder /app/target/*.jar /app/suivistage.jar
 
 # Commande pour exécuter l'application lorsque le conteneur démarre
 CMD ["java", "-jar", "/app/suivistage.jar"]

@@ -34,7 +34,7 @@ public class UtilisateurService {
 		utilisateurRepository.save(utilisateurMapper.toEntity(utilisateurDTO));
 	}
 	public void modifier(UtilisateurDTO utilisateurDTO) {
-		Optional<Utilisateur> utilisateurTemp = utilisateurRepository.findById(utilisateurDTO.getId());
+		Optional<Utilisateur> utilisateurTemp = utilisateurRepository.findByNom(utilisateurDTO.getNom());
 		if(utilisateurTemp.isEmpty()) {
 			EntityNotFoundException exception = new EntityNotFoundException(UTILISATEUR_NON_TROUVE, ErrorCodes.UTILISATEUR_NON_TROUVE);
 			log.error(UTILISATEUR_NON_TROUVE, exception);
@@ -44,17 +44,17 @@ public class UtilisateurService {
 		utilisateur.setId(utilisateurDTO.getId());
 		utilisateurRepository.save(utilisateur);
 	}
-	public void supprimer(Integer utilisateurId) {
-		Optional<Utilisateur> utilisateurTemp = utilisateurRepository.findById(utilisateurId);
+	public void supprimer(String nom) {
+		Optional<Utilisateur> utilisateurTemp = utilisateurRepository.findByNom(nom);
 		if(utilisateurTemp.isEmpty()) {
 			EntityNotFoundException exception = new EntityNotFoundException(UTILISATEUR_NON_TROUVE, ErrorCodes.UTILISATEUR_NON_TROUVE);
 			log.error(UTILISATEUR_NON_TROUVE, exception);
 			throw exception;
 		}
-		utilisateurRepository.deleteById(utilisateurId);
+		utilisateurRepository.delete(utilisateurTemp.get());
 	}
-	public UtilisateurDTO rechercher(Integer utilisateurId) {
-		Optional<Utilisateur> utilisateurTemp = utilisateurRepository.findById(utilisateurId);
+	public UtilisateurDTO rechercher(String nom) {
+		Optional<Utilisateur> utilisateurTemp = utilisateurRepository.findByNom(nom);
 		if(utilisateurTemp.isEmpty()) {
 			EntityNotFoundException exception = new EntityNotFoundException(UTILISATEUR_NON_TROUVE, ErrorCodes.UTILISATEUR_NON_TROUVE);
 			log.error(UTILISATEUR_NON_TROUVE, exception);
@@ -64,5 +64,27 @@ public class UtilisateurService {
 	}
 	public List<UtilisateurDTO> rechercher_tout() {
 		return utilisateurRepository.findAll().stream().map(utilisateurMapper::fromEntity).toList();
+	}
+	public void connecter(String nom) {
+		Optional<Utilisateur> utilisateurTemp = utilisateurRepository.findByNom(nom);
+		if(utilisateurTemp.isEmpty()) {
+			EntityNotFoundException exception = new EntityNotFoundException(UTILISATEUR_NON_TROUVE, ErrorCodes.UTILISATEUR_NON_TROUVE);
+			log.error(UTILISATEUR_NON_TROUVE, exception);
+			throw exception;
+		}
+		Utilisateur utilisateur = utilisateurTemp.get();
+		utilisateur.setConnecte(true);
+		utilisateurRepository.save(utilisateur);
+	}
+	public void deconnecter(String nom) {
+		Optional<Utilisateur> utilisateurTemp = utilisateurRepository.findByNom(nom);
+		if(utilisateurTemp.isEmpty()) {
+			EntityNotFoundException exception = new EntityNotFoundException(UTILISATEUR_NON_TROUVE, ErrorCodes.UTILISATEUR_NON_TROUVE);
+			log.error(UTILISATEUR_NON_TROUVE, exception);
+			throw exception;
+		}
+		Utilisateur utilisateur = utilisateurTemp.get();
+		utilisateur.setConnecte(false);
+		utilisateurRepository.save(utilisateur);
 	}
 }

@@ -36,15 +36,15 @@ private final UtilisateurService utilisateurService;
 		return ResponseEntity.ok("Utilisateur modifié avec succès");
 	}
 	@ResponseStatus(HttpStatus.OK)
-	@DeleteMapping("/supprimer/{id}")
-	public ResponseEntity<String> supprimer(@PathVariable Integer id) {
-		utilisateurService.supprimer(id);
+	@DeleteMapping("/supprimer/{nom}")
+	public ResponseEntity<String> supprimer(@PathVariable String nom) {
+		utilisateurService.supprimer(nom);
 		return ResponseEntity.ok("Utilisateur supprimé avec succès");
 	}
 	@ResponseStatus(HttpStatus.OK)
-	@GetMapping("/rechercher/{id}")
-	public UtilisateurDTO rechercher(@PathVariable Integer id) {
-		return utilisateurService.rechercher(id);
+	@GetMapping("/rechercher/{nom}")
+	public UtilisateurDTO rechercher(@PathVariable String nom) {
+		return utilisateurService.rechercher(nom);
 	}
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping("/recherchertout")

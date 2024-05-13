@@ -3,9 +3,6 @@ package com.suivistage.api.entity;
 import java.io.Serializable;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -35,20 +32,16 @@ public class Stagiaire implements Serializable {
 	private String option;
 	
 	@OneToMany(mappedBy = "stagiaire", fetch = FetchType.LAZY)
-	@JsonIgnore
 	List<Affectation> affectations;
 	
 	@OneToMany(mappedBy = "stagiaire", fetch = FetchType.LAZY)
-	@JsonIgnore
 	List<Suivi> suivis;
 	
 	@ManyToOne(fetch = FetchType.EAGER) 
-	@JoinColumn(name = "ID_LIEU", insertable = false, updatable = false)
-	@JsonBackReference
+	@JoinColumn(name = "ID_LIEU")
 	private Lieu lieu;
 	
 	@ManyToOne(fetch = FetchType.EAGER) 
-	@JoinColumn(name = "ID_SUJET", insertable = false, updatable = false)
-	@JsonBackReference
+	@JoinColumn(name = "ID_SUJET")
 	private Sujet sujet;
 }

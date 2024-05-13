@@ -30,6 +30,8 @@ public class StagiaireMapper {
 		stagiaireDTO.setIne(stagiaire.getIne());
 		stagiaireDTO.setClasse(stagiaire.getClasse());
 		stagiaireDTO.setOption(stagiaire.getOption());
+		stagiaireDTO.setSujetId(stagiaire.getSujet().getId());
+		stagiaireDTO.setLieuId(stagiaire.getLieu().getId());
 		return stagiaireDTO;
 	}
 	public Stagiaire toEntity(StagiaireDTO stagiaireDTO) {

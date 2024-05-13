@@ -18,4 +18,6 @@ public class SuiviDTO implements Serializable {
 	private LocalDate date_suivi;
 	private String rapport_stage;
 	private String observation;
+	private Integer tuteurId;
+	private Integer stagiaireId;
 }

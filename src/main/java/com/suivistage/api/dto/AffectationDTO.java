@@ -20,4 +20,6 @@ public class AffectationDTO implements Serializable {
 	private LocalDate date_debut_stage;
 	private LocalDate date_fin_stage;
 	private double note_stage;
+	private Integer tuteurId;
+	private Integer stagiaireId;
 }

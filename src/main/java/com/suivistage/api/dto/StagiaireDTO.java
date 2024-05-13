@@ -18,4 +18,6 @@ public class StagiaireDTO implements Serializable {
 	private String ine;
 	private String classe;
 	private String option;
+	private Integer lieuId;
+	private Integer sujetId;
 }

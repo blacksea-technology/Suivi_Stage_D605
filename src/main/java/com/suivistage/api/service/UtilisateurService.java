@@ -41,7 +41,7 @@ public class UtilisateurService {
 			throw exception;
 		}
 		Utilisateur utilisateur = utilisateurMapper.toEntity(utilisateurDTO);
-		utilisateur.setId(utilisateurDTO.getId());
+		utilisateur.setId(utilisateurTemp.get().getId());
 		utilisateurRepository.save(utilisateur);
 	}
 	public void supprimer(String nom) {
